@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import AsciiLogo from '../components/AsciiLogo';
+import AsciiLogoAnimation from '../components/AsciiLogoAnimation';
 import SystemBox from '../components/SystemBox';
 import './Home.css';
 
@@ -12,7 +12,7 @@ const Home = () => {
                 <meta name="description" content="QUARCC is a student-run club at Concordia University dedicated to quantitative finance, featuring research groups and algorithmic trading." />
             </Helmet>
             <div className="home-left">
-                <AsciiLogo />
+                <AsciiLogoAnimation />
             </div>
             <div className="home-right">
                 <SystemBox title="Club Details">

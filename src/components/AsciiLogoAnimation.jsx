@@ -1,0 +1,375 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+const AsciiLogoAnimation = () => {
+    const [displayContent, setDisplayContent] = useState({ type: 'text', data: '' });
+    const animationRef = useRef(null);
+
+    const finalLogo = `                                                            √+++                               ∞∞√
+                                                           =∞   =+                             ∞∞=
+                                                          =≈    ∞∞             +π∞+           ×∞∞=
+                                                           =+  ∞∞∞÷                 +         =∞∞≈
+                                                             √+×≠∞≈≈+         +    ++         ≈∞∞∞
+                                                                  ≈≠≠≠-π       +++--         ×∞∞∞√
+                                                                    ∞≠∞≈÷+       -√-         ÷∞∞∞
+                                                                      +=∞∞÷+     -√×         ≈∞∞∞      ∞∞  +=
+                                                                        +≠∞≈÷+   +∞≈-       +∞∞∞≈      ∞                                                           ÷÷÷÷÷
+                                                                          -≈√≠×+  ∞√≠+      ≈∞∞∞≈     ≠∞    +                                                      ÷  ÷÷
+                                                                           +×≈√≠÷=∞√√≠×    ×∞∞∞∞=  ÷≈≈≠=+                 ≈+++                                      ÷÷÷
+                                                                             -≠√√√√√√√≈- ∞=∞∞∞∞∞ ∞∞∞∞÷                   +     +                                      ÷
+                                                             =-+++            -≠√√√√√√√∞≈∞∞∞∞∞∞∞∞∞∞≈                   ÷--     +                                                                ÷÷÷
+                                                            ÷≠    +            +=√√√√√√√√√∞∞∞∞∞∞∞∞÷                 +--+-+++ √+                                       ÷÷                       ÷÷  ÷≈
+                                                            ≠     ≠∞=+          =√√√∞∞∞√√√∞√∞∞∞∞∞∞            +---++++                         ÷÷÷÷                  ÷÷÷÷÷÷÷÷÷÷               ÷÷÷÷÷÷
+                                                             +-∞+++=≠==×--+    ×=√√√√√-≠--×=∞∞∞∞∞∞≈×∞ ∞+-----÷÷---+                           ÷÷  ÷÷              ÷÷÷÷÷÷     ÷÷÷÷÷        ÷÷÷
+                                                                      -=∞∞∞÷---≠√√√√√π-     =∞∞∞∞∞∞∞∞∞∞∞√≈×---+                                ÷÷÷÷ ÷÷÷         ÷÷÷÷            ÷÷÷÷  ÷÷÷
+                                                                        ×=≈√π√√√∞√√π÷-+      ÷∞∞∞√√√∞∞∞∞≠+                                              ÷ ÷    ÷÷÷                ÷÷÷
+                                                                           ∞∞∞∞∞∞∞∞≈-         -≈≈∞∞∞∞∞√≈                                                    ÷÷÷÷÷                  ÷÷÷
+                                                                   =∞≈≈≈∞∞∞∞∞∞∞∞∞∞∞∞∞+      +=√√√√≠--------++×  +                                            ÷÷                    ÷÷÷
+                                                             ÷∞∞∞∞∞∞∞∞∞∞∞≠===≠∞∞∞∞∞∞∞∞∞÷     -√√√√≈×     ≠--÷+   √                                            ÷÷                    ÷÷÷
+                                                        ≈∞∞∞∞∞∞∞≠≠≠≠≠≠÷∞      π-≠∞∞√√∞√∞==÷=∞∞∞√√√∞          +   +                                            ÷÷                    ÷÷÷
+                                             ×+  =-≈∞∞∞∞∞≈≈≈≈÷                   ∞∞√∞∞√√√∞∞∞∞∞∞∞∞√∞×                                                          ÷÷÷                   ÷÷÷
+                                            +       ∞∞≈×                        -∞∞√√√√√∞∞∞∞∞∞∞∞∞∞∞∞≈+                                                         ÷÷                  ÷÷÷ ÷÷÷÷
+                                             ∞      ÷                          -∞√√√√√√∞√∞≈∞∞∞∞∞∞∞∞∞∞∞∞÷                                                        ÷÷÷               ÷÷÷        ÷= ÷
+                                              +   ∞+                         +=∞√≈≈≠√∞∞∞∞÷  -∞∞∞∞∞  ÷∞∞∞∞-                                                       ÷÷÷÷           ÷÷÷÷              ÷÷÷÷   ÷÷÷÷
+                                                                          +-÷==--- ≈√√∞∞=     ∞∞∞∞≠   ÷∞∞∞∞×                                                   ÷÷  ÷÷÷÷÷÷÷÷÷÷÷÷÷÷                       ÷÷  ÷÷
+                                                                    +++++-≠=-+    -≈√√∞-      ÷∞∞∞≈      ≠∞∞∞≠                                              ÷÷         ÷÷÷÷÷÷≠ ÷                        ÷÷÷÷÷
+                                                                   +     -×       -∞√∞÷        ∞∞∞≈         ≈≈≠≈=                                          ÷                    ÷
+                                                                   +      +       -√√≈         -∞∞≈            =≈≈÷÷+≠-                                ÷÷                        π
+                                                                     ++∞-∞        =√∞×          ∞∞∞               ≈    ≈                             ÷                            ÷
+                          +++++++++++++++++          +++++π             +++++    +∞√≈∞    +++++++++∞∞            -=×--×=×---------÷              ÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷            +++++++++++++++++
+                        ++++++++++++++++++++++       +++++              +++++    -√∞×     +++++++++ ∞=           -√√√∞√√√∞∞∞∞∞∞∞√∞∞≠×--        ÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷        ++++++++++++++++++++++
+                       ++++++++++++++++++++++++      +++++              +++++    -√≈+    +++++++++++ ≈           -√√√∞=----------÷≈∞√√∞-      ÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷      ++++++++++++++++++++++++
+                      ++++++             ++++++      +++++              +++++    ×√÷    ≈+++++ +++++∞            -√√√=            ∞≈√√√∞-     ÷÷÷÷÷              ÷÷÷÷÷     ++++++             ++++++
+                      ++++++              +++++      +++++              +++++   √≠∞-    +++++   +++++            -√√√-             ÷∞√√∞-    ÷÷÷÷÷÷              ÷÷÷÷÷÷    ++++++              +++++
+                      ++++++              +++++      +++++              +++++   =∞≈π   ++++++   ++++++           -√√√-             -∞√√√-    ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++   +∞≈    +++++     +++++           -√√√-             -∞√√√-    ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++   +--+  ++++++     ++++++          -√√√=             ÷√√√∞-    ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++ +    + ++++++       ++++++         -√√√∞=-----------=∞√√∞-     ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++-      ∞+++++         +++++         -√√√√√√√√√√√√√√√√√∞∞=-      ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++-      +++++++++++++++++++++        -√√√∞÷----÷≈∞√√√√∞÷-        ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++  +++-++++++++++++++++++++++π       -√√√=      ÷÷∞√√√∞          ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++      +++++++++++++++++++++++       -√√√-        -∞√√∞×         ÷÷÷÷÷÷                        ++++++
+                      ++++++              +++++      +++++              +++++     ++++++             ++++++      -√√√-         -=∞√∞≈-       ÷÷÷÷÷÷              ÷÷÷÷÷÷    ++++++              +++++
+                      ++++++             ++++++      ++++++            ++++++     +++++               +++++      -√√√-           -∞√√∞-       ÷÷÷÷÷÷            ÷÷÷÷÷÷     ++++++             ++++++
+                       ++++++++++++++++++++++++       +++++++++++++++++++++++    ++++++               ++++++     -√√√-            -≠∞√∞÷-     ÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷      ++++++++++++++++++++++++
+                        ++++++++++++++++++++++         +++++++++++++++++++++    ++++++                 ++++++    -∞∞∞-              -≈∞∞≈-     ÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷        ++++++++++++++++++++++
+                           +++++++++++++++++              +++++++++++++++       +++++                   +++++    -===-               -===--       ×÷÷÷÷÷÷÷÷÷÷÷÷÷÷-              ++++++++++++++++
+                                       ++++++
+                                        ++++++`;
+
+    const logoLines = finalLogo.split('\n');
+    const TOTAL_LINES = logoLines.length;
+    const TOTAL_WIDTH = Math.max(...logoLines.map(l => l.length));
+
+    const paddedLogoLines = logoLines.map(line => line.padEnd(TOTAL_WIDTH, ' '));
+
+    const Y_AXIS_WIDTH = 8;
+    const X_AXIS_HEIGHT = 2;
+    const CHART_HEIGHT = TOTAL_LINES - X_AXIS_HEIGHT;
+    const CHART_WIDTH = TOTAL_WIDTH - Y_AXIS_WIDTH;
+
+    const PRICE_HIGH = 425;
+    const PRICE_LOW = 320;
+    const PRICE_RANGE = PRICE_HIGH - PRICE_LOW;
+
+    const candles = [
+        { col: 15, wickTop: 35, bodyTop: 38, bodyBottom: 46, wickBottom: 48, bullish: true },
+        { col: 26, wickTop: 30, bodyTop: 33, bodyBottom: 42, wickBottom: 45, bullish: true },
+        { col: 37, wickTop: 25, bodyTop: 28, bodyBottom: 38, wickBottom: 42, bullish: true },
+        { col: 48, wickTop: 20, bodyTop: 23, bodyBottom: 32, wickBottom: 36, bullish: true },
+        { col: 59, wickTop: 14, bodyTop: 17, bodyBottom: 26, wickBottom: 30, bullish: true },
+        { col: 70, wickTop: 10, bodyTop: 13, bodyBottom: 22, wickBottom: 26, bullish: true },
+        { col: 81, wickTop: 6, bodyTop: 9, bodyBottom: 18, wickBottom: 22, bullish: true },
+        { col: 92, wickTop: 2, bodyTop: 5, bodyBottom: 14, wickBottom: 18, bullish: true },
+        { col: 103, wickTop: 8, bodyTop: 11, bodyBottom: 20, wickBottom: 24, bullish: false },
+        { col: 114, wickTop: 14, bodyTop: 17, bodyBottom: 26, wickBottom: 30, bullish: false },
+        { col: 125, wickTop: 10, bodyTop: 13, bodyBottom: 22, wickBottom: 26, bullish: false },
+        { col: 136, wickTop: 4, bodyTop: 7, bodyBottom: 16, wickBottom: 20, bullish: true },
+        { col: 147, wickTop: 0, bodyTop: 3, bodyBottom: 12, wickBottom: 16, bullish: true },
+        { col: 158, wickTop: 6, bodyTop: 9, bodyBottom: 16, wickBottom: 20, bullish: false },
+        { col: 169, wickTop: 0, bodyTop: 3, bodyBottom: 10, wickBottom: 14, bullish: true },
+        { col: 180, wickTop: 0, bodyTop: 2, bodyBottom: 8, wickBottom: 12, bullish: true },
+    ];
+
+    const timeLabels = ['9:30', '9:35', '9:40', '9:45', '9:50', '9:55', '10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30', '10:35', '10:40', '10:45'];
+
+    const buildChartColored = (revealedCandles) => {
+        const lines = [];
+
+        for (let row = 0; row < CHART_HEIGHT; row++) {
+            const segments = [];
+            let lineLength = 0;
+
+            if (row % 10 === 0) {
+                const price = Math.round(PRICE_HIGH - (row / CHART_HEIGHT) * PRICE_RANGE);
+                const label = `$${price} ┤`.padStart(8, ' ');
+                segments.push({ text: label, color: 'green' });
+                lineLength += 8;
+            } else {
+                segments.push({ text: '       ┤', color: 'green' });
+                lineLength += 8;
+            }
+
+            let currentText = '';
+            let currentColor = 'green';
+
+            for (let col = 0; col < CHART_WIDTH; col++) {
+                let char = ' ';
+                let charColor = 'green';
+
+                for (let c = 0; c < Math.min(revealedCandles, candles.length); c++) {
+                    const candle = candles[c];
+                    const candleCol = candle.col - Y_AXIS_WIDTH;
+
+                    if (col === candleCol && row >= candle.wickTop && row <= candle.wickBottom) {
+                        charColor = candle.bullish ? 'green' : 'red';
+                        if (row >= candle.bodyTop && row <= candle.bodyBottom) {
+                            char = '█';
+                        } else {
+                            char = '│';
+                        }
+                        break;
+                    }
+                }
+
+                if (charColor === currentColor) {
+                    currentText += char;
+                } else {
+                    if (currentText) {
+                        segments.push({ text: currentText, color: currentColor });
+                        lineLength += currentText.length;
+                    }
+                    currentText = char;
+                    currentColor = charColor;
+                }
+            }
+            if (currentText) {
+                segments.push({ text: currentText, color: currentColor });
+                lineLength += currentText.length;
+            }
+
+            if (lineLength < TOTAL_WIDTH) {
+                segments.push({ text: ' '.repeat(TOTAL_WIDTH - lineLength), color: 'green' });
+            }
+
+            lines.push(segments);
+        }
+
+        let xAxisText = '     └' + '─'.repeat(CHART_WIDTH - 1);
+        xAxisText = xAxisText.padEnd(TOTAL_WIDTH, ' ');
+        lines.push([{ text: xAxisText, color: 'green' }]);
+
+        let timeLine = '      ';
+        for (let i = 0; i < timeLabels.length && timeLine.length < TOTAL_WIDTH - 5; i++) {
+            timeLine += timeLabels[i].padEnd(11, ' ');
+        }
+        timeLine = timeLine.padEnd(TOTAL_WIDTH, ' ').substring(0, TOTAL_WIDTH);
+        lines.push([{ text: timeLine, color: 'green' }]);
+
+        return lines;
+    };
+
+    const buildChartPlain = (revealedCandles) => {
+        const lines = [];
+
+        for (let row = 0; row < CHART_HEIGHT; row++) {
+            let line = '';
+
+            if (row % 10 === 0) {
+                const price = Math.round(PRICE_HIGH - (row / CHART_HEIGHT) * PRICE_RANGE);
+                line = `$${price} ┤`.padStart(6, ' ');
+            } else {
+                line = '     ┤';
+            }
+
+            for (let col = 0; col < CHART_WIDTH; col++) {
+                let char = ' ';
+
+                for (let c = 0; c < Math.min(revealedCandles, candles.length); c++) {
+                    const candle = candles[c];
+                    const candleCol = candle.col - Y_AXIS_WIDTH;
+
+                    if (col === candleCol && row >= candle.wickTop && row <= candle.wickBottom) {
+                        if (row >= candle.bodyTop && row <= candle.bodyBottom) {
+                            char = '█';
+                        } else {
+                            char = '│';
+                        }
+                        break;
+                    }
+                }
+                line += char;
+            }
+
+            lines.push(line.padEnd(TOTAL_WIDTH, ' '));
+        }
+        lines.push(('     └' + '─'.repeat(CHART_WIDTH - 1)).padEnd(TOTAL_WIDTH, ' '));
+
+        let timeLine = '      ';
+        for (let i = 0; i < timeLabels.length && timeLine.length < TOTAL_WIDTH - 5; i++) {
+            timeLine += timeLabels[i].padEnd(11, ' ');
+        }
+        lines.push(timeLine.padEnd(TOTAL_WIDTH, ' '));
+
+        return lines.join('\n');
+    };
+
+    useEffect(() => {
+        const totalCandles = candles.length;
+        const drawingFrames = 48;
+        const holdFrames = 15;
+        const transitionFrames = 45;
+        let currentFrame = 0;
+        let cachedChartPlain = null;
+
+        const animate = () => {
+            const totalDrawing = drawingFrames;
+            const totalHold = totalDrawing + holdFrames;
+            const totalTransition = totalHold + transitionFrames;
+
+            if (currentFrame <= totalTransition) {
+                if (currentFrame < totalDrawing) {
+                    const candlesToShow = Math.floor((currentFrame / totalDrawing) * totalCandles) + 1;
+                    setDisplayContent({ type: 'colored', data: buildChartColored(Math.min(candlesToShow, totalCandles)) });
+                } else if (currentFrame < totalHold) {
+                    setDisplayContent({ type: 'colored', data: buildChartColored(totalCandles) });
+                    if (!cachedChartPlain) {
+                        cachedChartPlain = buildChartPlain(totalCandles).split('\n');
+                    }
+                } else {
+                    const coloredChart = buildChartColored(totalCandles);
+
+                    const transitionProgress = (currentFrame - totalHold) / transitionFrames;
+                    const eased = transitionProgress < 0.5
+                        ? 2 * transitionProgress * transitionProgress
+                        : 1 - Math.pow(-2 * transitionProgress + 2, 2) / 2;
+
+                    const resultLines = [];
+
+                    for (let i = 0; i < TOTAL_LINES; i++) {
+                        const chartLine = coloredChart[i] || [{ text: ' '.repeat(TOTAL_WIDTH), color: 'green' }];
+                        const logoLine = paddedLogoLines[i] || ' '.repeat(TOTAL_WIDTH);
+
+                        const chartChars = [];
+                        for (const seg of chartLine) {
+                            for (const ch of seg.text) {
+                                chartChars.push({ char: ch, color: seg.color });
+                            }
+                        }
+                        while (chartChars.length < TOTAL_WIDTH) {
+                            chartChars.push({ char: ' ', color: 'green' });
+                        }
+
+                        const lineSegments = [];
+                        let currentText = '';
+                        let currentColor = 'green';
+
+                        for (let j = 0; j < TOTAL_WIDTH; j++) {
+                            const chartChar = chartChars[j];
+                            const logoChar = logoLine[j] || ' ';
+
+                            const positionFactor = (i / TOTAL_LINES + j / TOTAL_WIDTH) / 2;
+                            const localProgress = Math.max(0, Math.min(1, (eased - positionFactor * 0.6) / 0.4));
+
+                            let finalChar;
+                            let finalColor;
+
+                            if (localProgress < 0.01) {
+                                finalChar = chartChar.char;
+                                finalColor = chartChar.color;
+                            } else if (localProgress < 0.5) {
+                                const rand = Math.random();
+                                if (rand < 0.2) {
+                                    finalChar = chartChar.char;
+                                    finalColor = chartChar.color;
+                                } else if (rand < 0.5) {
+                                    finalChar = logoChar;
+                                    finalColor = 'green';
+                                } else {
+                                    const glitchChars = '█▓▒░▀▄│─┤├┼╬═║╔╗╚╝√∞÷×≈≠∂∑∫';
+                                    finalChar = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                                    finalColor = Math.random() < 0.3 ? 'red' : 'green';
+                                }
+                            } else {
+                                finalChar = logoChar;
+                                finalColor = 'green';
+                            }
+
+                            if (finalColor === currentColor) {
+                                currentText += finalChar;
+                            } else {
+                                if (currentText) lineSegments.push({ text: currentText, color: currentColor });
+                                currentText = finalChar;
+                                currentColor = finalColor;
+                            }
+                        }
+                        if (currentText) lineSegments.push({ text: currentText, color: currentColor });
+                        resultLines.push(lineSegments);
+                    }
+
+                    setDisplayContent({ type: 'colored', data: resultLines });
+                }
+
+                currentFrame++;
+                animationRef.current = setTimeout(animate, 33);
+            } else {
+                setDisplayContent({ type: 'text', data: finalLogo });
+            }
+        };
+
+        const startTimer = setTimeout(animate, 300);
+
+        return () => {
+            clearTimeout(startTimer);
+            if (animationRef.current) {
+                clearTimeout(animationRef.current);
+            }
+        };
+    }, []);
+
+    const renderContent = () => {
+        if (displayContent.type === 'colored') {
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    {displayContent.data.map((line, i) => (
+                        <div key={i} style={{ whiteSpace: 'pre' }}>
+                            {line.map((segment, j) => (
+                                <span
+                                    key={j}
+                                    style={{
+                                        color: segment.color === 'red' ? '#ff4757' : '#00ff88',
+                                        textShadow: segment.color === 'red' ? '0 0 5px #ff4757' : '0 0 3px #00ff88'
+                                    }}
+                                >
+                                    {segment.text}
+                                </span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        return displayContent.data;
+    };
+
+    return (
+        <pre style={{
+            color: '#00ff88',
+            fontWeight: 'bold',
+            lineHeight: '1',
+            fontSize: '7px',
+            whiteSpace: 'pre',
+            overflow: 'hidden',
+            transformOrigin: 'top left',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textShadow: '0 0 3px #00ff88',
+            fontFamily: "'Courier New', monospace",
+        }}>
+            {renderContent()}
+        </pre>
+    );
+};
+
+export default AsciiLogoAnimation;
