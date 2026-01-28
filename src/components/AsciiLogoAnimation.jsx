@@ -189,60 +189,17 @@ const AsciiLogoAnimation = () => {
         return lines;
     };
 
-    const buildChartPlain = (revealedCandles) => {
-        const lines = [];
-
-        for (let row = 0; row < CHART_HEIGHT; row++) {
-            let line = '';
-
-            if (row % 10 === 0) {
-                const price = Math.round(PRICE_HIGH - (row / CHART_HEIGHT) * PRICE_RANGE);
-                line = `$${price} ┤`.padStart(6, ' ');
-            } else {
-                line = '     ┤';
-            }
-
-            for (let col = 0; col < CHART_WIDTH; col++) {
-                let char = ' ';
-
-                for (let c = 0; c < Math.min(revealedCandles, candles.length); c++) {
-                    const candle = candles[c];
-                    const candleCol = candle.col - Y_AXIS_WIDTH;
-
-                    if (col === candleCol && row >= candle.wickTop && row <= candle.wickBottom) {
-                        if (row >= candle.bodyTop && row <= candle.bodyBottom) {
-                            char = '█';
-                        } else {
-                            char = '│';
-                        }
-                        break;
-                    }
-                }
-                line += char;
-            }
-
-            lines.push(line.padEnd(TOTAL_WIDTH, ' '));
-        }
-        lines.push(('     └' + '─'.repeat(CHART_WIDTH - 1)).padEnd(TOTAL_WIDTH, ' '));
-
-        let timeLine = '      ';
-        for (let i = 0; i < timeLabels.length && timeLine.length < TOTAL_WIDTH - 5; i++) {
-            timeLine += timeLabels[i].padEnd(11, ' ');
-        }
-        lines.push(timeLine.padEnd(TOTAL_WIDTH, ' '));
-
-        return lines.join('\n');
-    };
-
     useEffect(() => {
         const isMobile = window.innerWidth <= 768;
         const totalCandles = candles.length;
         const drawingFrames = isMobile ? 24 : 48;
         const holdFrames = isMobile ? 8 : 15;
-        const transitionFrames = isMobile ? 20 : 45;
+        const transitionFrames = isMobile ? 10 : 45;
         const frameInterval = isMobile ? 50 : 33;
         let currentFrame = 0;
-        let cachedChartPlain = null;
+        let cachedColoredChart = null;
+        let cachedChartChars = null;
+        const glitchChars = '█▓▒░▀▄│─┤├┼╬═║╔╗╚╝√∞÷×≈≠∂∑∫';
 
         const animate = () => {
             const totalDrawing = drawingFrames;
@@ -254,13 +211,23 @@ const AsciiLogoAnimation = () => {
                     const candlesToShow = Math.floor((currentFrame / totalDrawing) * totalCandles) + 1;
                     setDisplayContent({ type: 'colored', data: buildChartColored(Math.min(candlesToShow, totalCandles)) });
                 } else if (currentFrame < totalHold) {
-                    setDisplayContent({ type: 'colored', data: buildChartColored(totalCandles) });
-                    if (!cachedChartPlain) {
-                        cachedChartPlain = buildChartPlain(totalCandles).split('\n');
+                    if (!cachedColoredChart) {
+                        cachedColoredChart = buildChartColored(totalCandles);
+                        cachedChartChars = cachedColoredChart.map(line => {
+                            const chars = [];
+                            for (const seg of line) {
+                                for (const ch of seg.text) {
+                                    chars.push({ char: ch, color: seg.color });
+                                }
+                            }
+                            while (chars.length < TOTAL_WIDTH) {
+                                chars.push({ char: ' ', color: 'green' });
+                            }
+                            return chars;
+                        });
                     }
+                    setDisplayContent({ type: 'colored', data: cachedColoredChart });
                 } else {
-                    const coloredChart = buildChartColored(totalCandles);
-
                     const transitionProgress = (currentFrame - totalHold) / transitionFrames;
                     const eased = transitionProgress < 0.5
                         ? 2 * transitionProgress * transitionProgress
@@ -269,22 +236,12 @@ const AsciiLogoAnimation = () => {
                     const resultLines = [];
 
                     for (let i = 0; i < TOTAL_LINES; i++) {
-                        const chartLine = coloredChart[i] || [{ text: ' '.repeat(TOTAL_WIDTH), color: 'green' }];
-                        const logoLine = paddedLogoLines[i] || ' '.repeat(TOTAL_WIDTH);
-
-                        const chartChars = [];
-                        for (const seg of chartLine) {
-                            for (const ch of seg.text) {
-                                chartChars.push({ char: ch, color: seg.color });
-                            }
-                        }
-                        while (chartChars.length < TOTAL_WIDTH) {
-                            chartChars.push({ char: ' ', color: 'green' });
-                        }
+                        const chartChars = cachedChartChars[i];
+                        const logoLine = paddedLogoLines[i];
 
                         const lineSegments = [];
                         let currentText = '';
-                        let currentColor = 'green';
+                        let currentColor = 'purple';
 
                         for (let j = 0; j < TOTAL_WIDTH; j++) {
                             const chartChar = chartChars[j];
@@ -306,15 +263,14 @@ const AsciiLogoAnimation = () => {
                                     finalColor = chartChar.color;
                                 } else if (rand < 0.5) {
                                     finalChar = logoChar;
-                                    finalColor = 'green';
+                                    finalColor = 'purple';
                                 } else {
-                                    const glitchChars = '█▓▒░▀▄│─┤├┼╬═║╔╗╚╝√∞÷×≈≠∂∑∫';
                                     finalChar = glitchChars[Math.floor(Math.random() * glitchChars.length)];
-                                    finalColor = Math.random() < 0.3 ? 'red' : 'green';
+                                    finalColor = 'purple';
                                 }
                             } else {
                                 finalChar = logoChar;
-                                finalColor = 'green';
+                                finalColor = 'purple';
                             }
 
                             if (finalColor === currentColor) {
@@ -355,17 +311,25 @@ const AsciiLogoAnimation = () => {
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {displayContent.data.map((line, i) => (
                         <div key={i} style={{ whiteSpace: 'pre' }}>
-                            {line.map((segment, j) => (
-                                <span
-                                    key={j}
-                                    style={{
-                                        color: segment.color === 'red' ? '#ff4757' : '#00ff88',
-                                        textShadow: segment.color === 'red' ? '0 0 5px #ff4757' : '0 0 3px #00ff88'
-                                    }}
-                                >
-                                    {segment.text}
-                                </span>
-                            ))}
+                            {line.map((segment, j) => {
+                                const colorMap = {
+                                    red: { color: '#ff4757', shadow: '0 0 5px #ff4757' },
+                                    green: { color: '#00ff88', shadow: '0 0 3px #00ff88' },
+                                    purple: { color: '#8957e5', shadow: '0 0 3px #8957e5' }
+                                };
+                                const colors = colorMap[segment.color] || colorMap.green;
+                                return (
+                                    <span
+                                        key={j}
+                                        style={{
+                                            color: colors.color,
+                                            textShadow: colors.shadow
+                                        }}
+                                    >
+                                        {segment.text}
+                                    </span>
+                                );
+                            })}
                         </div>
                     ))}
                 </div>
@@ -388,7 +352,7 @@ const AsciiLogoAnimation = () => {
             }}
         >
             <pre style={{
-                color: '#00ff88',
+                color: '#8957e5',
                 fontWeight: 'bold',
                 lineHeight: '1',
                 fontSize: '7px',
@@ -396,7 +360,7 @@ const AsciiLogoAnimation = () => {
                 overflow: 'visible',
                 transform: `scale(${scale})`,
                 transformOrigin: 'top center',
-                textShadow: '0 0 3px #00ff88',
+                textShadow: '0 0 3px #8957e5',
                 fontFamily: "'Courier New', monospace",
                 opacity: isReady ? 1 : 0,
                 transition: 'opacity 0.2s ease-in',
