@@ -1,0 +1,20 @@
+.system-box {
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: transparent;
+    font-family: var(--font-mono);
+    /* Ensure monospace for alignment */
+}
+
+.system-box-title {
+    padding: 0 var(--spacing-sm);
+    color: var(--color-text);
+    font-weight: bold;
+    font-family: var(--font-mono);
+    /* Ensure legend is also monospace */
+}
+
+.system-box-content {
+    font-family: var(--font-mono);
+}
