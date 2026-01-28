@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const AsciiLogoAnimation = () => {
+    const [isReady, setIsReady] = useState(false);
     const [displayContent, setDisplayContent] = useState({ type: 'text', data: '' });
+    const [scale, setScale] = useState(0.5);
     const animationRef = useRef(null);
+    const containerRef = useRef(null);
 
     const finalLogo = `                                                            √+++                               ∞∞√
                                                            =∞   =+                             ∞∞=
@@ -91,6 +94,24 @@ const AsciiLogoAnimation = () => {
     ];
 
     const timeLabels = ['9:30', '9:35', '9:40', '9:45', '9:50', '9:55', '10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30', '10:35', '10:40', '10:45'];
+
+    const LOGO_BASE_WIDTH = 1100;
+    const LOGO_BASE_HEIGHT = 400;
+
+    useEffect(() => {
+        const updateScale = () => {
+            if (containerRef.current) {
+                const containerWidth = containerRef.current.parentElement?.clientWidth || window.innerWidth;
+                const newScale = Math.min(1, containerWidth / LOGO_BASE_WIDTH);
+                setScale(newScale);
+                if (!isReady) setIsReady(true);
+            }
+        };
+
+        updateScale();
+        window.addEventListener('resize', updateScale);
+        return () => window.removeEventListener('resize', updateScale);
+    }, [isReady]);
 
     const buildChartColored = (revealedCandles) => {
         const lines = [];
@@ -214,10 +235,12 @@ const AsciiLogoAnimation = () => {
     };
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
         const totalCandles = candles.length;
-        const drawingFrames = 48;
-        const holdFrames = 15;
-        const transitionFrames = 45;
+        const drawingFrames = isMobile ? 24 : 48;
+        const holdFrames = isMobile ? 8 : 15;
+        const transitionFrames = isMobile ? 20 : 45;
+        const frameInterval = isMobile ? 50 : 33;
         let currentFrame = 0;
         let cachedChartPlain = null;
 
@@ -310,7 +333,7 @@ const AsciiLogoAnimation = () => {
                 }
 
                 currentFrame++;
-                animationRef.current = setTimeout(animate, 33);
+                animationRef.current = setTimeout(animate, frameInterval);
             } else {
                 setDisplayContent({ type: 'text', data: finalLogo });
             }
@@ -351,24 +374,37 @@ const AsciiLogoAnimation = () => {
         return displayContent.data;
     };
 
+    const scaledHeight = LOGO_BASE_HEIGHT * scale;
+
     return (
-        <pre style={{
-            color: '#00ff88',
-            fontWeight: 'bold',
-            lineHeight: '1',
-            fontSize: '7px',
-            whiteSpace: 'pre',
-            overflow: 'hidden',
-            transformOrigin: 'top left',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textShadow: '0 0 3px #00ff88',
-            fontFamily: "'Courier New', monospace",
-        }}>
-            {renderContent()}
-        </pre>
+        <div
+            ref={containerRef}
+            style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                height: `${scaledHeight}px`,
+                overflow: 'hidden',
+            }}
+        >
+            <pre style={{
+                color: '#00ff88',
+                fontWeight: 'bold',
+                lineHeight: '1',
+                fontSize: '7px',
+                whiteSpace: 'pre',
+                overflow: 'visible',
+                transform: `scale(${scale})`,
+                transformOrigin: 'top center',
+                textShadow: '0 0 3px #00ff88',
+                fontFamily: "'Courier New', monospace",
+                opacity: isReady ? 1 : 0,
+                transition: 'opacity 0.2s ease-in',
+                willChange: 'contents',
+            }}>
+                {renderContent()}
+            </pre>
+        </div>
     );
 };
 
