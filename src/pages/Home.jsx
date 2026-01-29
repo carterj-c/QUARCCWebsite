@@ -13,6 +13,9 @@ const Home = () => {
             </Helmet>
             <div className="home-left">
                 <AsciiLogo />
+                <div className="news-container">
+                    [News]
+                </div>
             </div>
             <div className="home-right">
                 <SystemBox title="Club Details">

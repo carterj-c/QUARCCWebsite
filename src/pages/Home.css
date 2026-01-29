@@ -10,9 +10,18 @@
 .home-left {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     padding-right: var(--spacing-md);
+}
+
+.news-container {
+    margin-top: var(--spacing-lg);
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    min-height: 4.5em; /* Approximately 3 lines */
+    white-space: pre-wrap;
 }
 
 .home-right {
