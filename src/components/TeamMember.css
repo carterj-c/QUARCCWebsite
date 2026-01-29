@@ -4,7 +4,8 @@
     border: 1px solid var(--color-primary);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-md);
-    background-color: rgba(0, 255, 0, 0.05);
+    background-color: black;
+    /* Changed to black as requested */
     gap: var(--spacing-lg);
 }
 
@@ -59,18 +60,25 @@
     margin-right: auto;
 }
 
-.linkedin-button {
-    color: var(--color-background);
-    background-color: var(--color-primary);
+.member-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.member-button {
+    color: var(--color-primary);
+    background-color: transparent;
     text-decoration: none;
     padding: 2px 8px;
     font-weight: bold;
     font-size: 0.8rem;
     transition: all 0.2s;
+    white-space: nowrap;
+    border: 1px solid var(--color-primary);
 }
 
-.linkedin-button:hover {
-    background-color: var(--color-text-bright);
+.member-button:hover {
+    background-color: var(--color-primary);
     color: var(--color-background);
 }
 
@@ -82,5 +90,10 @@
 
     .member-role {
         margin-bottom: 5px;
+    }
+
+    .member-buttons {
+        flex-wrap: wrap;
+        width: 100%;
     }
 }

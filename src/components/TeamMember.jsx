@@ -1,7 +1,7 @@
 import React from 'react';
 import './TeamMember.css';
 
-const TeamMember = ({ name, role, image, linkedin }) => {
+const TeamMember = ({ name, role, image, linkedin, email, website }) => {
     return (
         <div className="team-member-card">
             <div className="member-image-container">
@@ -16,11 +16,23 @@ const TeamMember = ({ name, role, image, linkedin }) => {
             <div className="member-info">
                 <h3 className="member-name">{name}</h3>
                 <p className="member-role">{role}</p>
-                {linkedin && (
-                    <a href={linkedin} target="_blank" rel="noopener noreferrer" className="linkedin-button">
-                        [LinkedIn]
-                    </a>
-                )}
+                <div className="member-buttons">
+                    {website && (
+                        <a href={website} target="_blank" rel="noopener noreferrer" className="member-button">
+                            [Website]
+                        </a>
+                    )}
+                    {email && (
+                        <a href={`mailto:${email}`} className="member-button">
+                            [Email]
+                        </a>
+                    )}
+                    {linkedin && (
+                        <a href={linkedin} target="_blank" rel="noopener noreferrer" className="member-button">
+                            [LinkedIn]
+                        </a>
+                    )}
+                </div>
             </div>
         </div>
     );
