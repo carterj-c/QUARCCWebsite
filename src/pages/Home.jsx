@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import AsciiLogo from '../components/AsciiLogo';
+import AsciiLogoAnimation from '../components/AsciiLogoAnimation';
 import SystemBox from '../components/SystemBox';
 import './Home.css';
 
