@@ -12,7 +12,7 @@ const Home = () => {
                 <meta name="description" content="QUARCC is a student-run club at Concordia University dedicated to quantitative finance, featuring research groups and algorithmic trading." />
             </Helmet>
             <div className="home-left">
-                <AsciiLogo />
+                <AsciiLogoAnimation />
                 <div className="news-container">
                     [News]
                 </div>
