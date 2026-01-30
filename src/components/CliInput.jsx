@@ -72,6 +72,7 @@ const CliInput = () => {
                     onKeyDown={handleKeyDown}
                     autoFocus
                     spellCheck={false}
+                    placeholder="type help for a list of commands"
                 />
             </div>
         </div>
