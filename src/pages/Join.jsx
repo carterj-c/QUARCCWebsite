@@ -13,10 +13,18 @@ const Join = () => {
                 <p>Interested in Quantitative Finance? Join us!</p>
                 <p>We welcome students from all backgrounds (Finance, CS, Math, Engineering).</p>
             </SystemBox>
-            <SystemBox title="Contact">
-                <p>Email: info@quarcc.com</p>
-                <p>Instagram: @quarcc_concordia</p>
-                <p>LinkedIn: QUARCC</p>
+            <SystemBox title="General Inquiries">
+                <p>Email: <a href="mailto:info@quarcc.com">info@quarcc.com</a></p>
+                <p>Instagram: <a href="https://www.instagram.com/quarcc.csu/">@quarcc.csu</a></p>
+                <p>LinkedIn: <a href="https://www.linkedin.com/company/quarcc/">QUARCC</a></p>
+            </SystemBox>
+            <SystemBox title="QUARCC Research Group">
+                <p>Email: <a href="mailto:qrg@quarcc.com">qrg@quarcc.com</a></p>
+                <p>Lead: [Research Lead Name]</p>
+            </SystemBox>
+            <SystemBox title="Stock Market Analyst">
+                <p>Email: <a href="mailto:sma@quarcc.com">sma@quarcc.com</a></p>
+                <p>Lead: [Analyst Lead Name]</p>
             </SystemBox>
         </div>
     );
