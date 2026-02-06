@@ -22,7 +22,8 @@
     text-align: center;
     font-size: 1.5rem;
     color: var(--color-primary);
-    min-height: 4.5em; /* Approximately 3 lines */
+    min-height: 4.5em;
+    /* Approximately 3 lines */
     white-space: pre-wrap;
 }
 
@@ -63,4 +64,35 @@
         width: 100%;
         min-height: 200px;
     }
+}
+
+.nav-links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.nav-link:hover {
+    transform: translateX(5px);
+    opacity: 0.8;
+}
+
+.nav-key {
+    color: var(--color-primary);
+    font-weight: bold;
+    min-width: 120px;
+    font-family: var(--font-mono);
+}
+
+.nav-desc {
+    color: var(--color-text);
+    font-family: var(--font-mono);
 }

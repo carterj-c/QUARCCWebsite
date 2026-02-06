@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import AsciiLogoAnimation from '../components/AsciiLogoAnimation';
 import SystemBox from '../components/SystemBox';
@@ -33,15 +33,28 @@ const Home = () => {
                     </div>
                 </SystemBox>
 
-                <SystemBox title="Technical Stack">
-                    <div className="detail-row">
-                        <span className="label">Groups:</span> <span className="value">SMA (Stock Market Analysts), QRG (Research Group)</span>
-                    </div>
-                    <div className="detail-row">
-                        <span className="label">Activities:</span> <span className="value">Lectures, Workshops, Paper Portfolios</span>
-                    </div>
-                    <div className="detail-row">
-                        <span className="label">Status:</span> <span className="value green">Active</span>
+                <SystemBox title="System Navigation">
+                    <div className="nav-links-grid">
+                        <Link to="/about" className="nav-link">
+                            <span className="nav-key">about</span>
+                            <span className="nav-desc">Club Information</span>
+                        </Link>
+                        <Link to="/events" className="nav-link">
+                            <span className="nav-key">events</span>
+                            <span className="nav-desc">Upcoming Events</span>
+                        </Link>
+                        <Link to="/teams" className="nav-link">
+                            <span className="nav-key">teams</span>
+                            <span className="nav-desc">Our Structure</span>
+                        </Link>
+                        <Link to="/join" className="nav-link">
+                            <span className="nav-key">join</span>
+                            <span className="nav-desc">Recruitment</span>
+                        </Link>
+                        <Link to="/paper-fund" className="nav-link">
+                            <span className="nav-key">paper-fund</span>
+                            <span className="nav-desc">Live Portfolios</span>
+                        </Link>
                     </div>
                 </SystemBox>
 
