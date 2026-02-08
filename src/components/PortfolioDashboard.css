@@ -1,0 +1,91 @@
+.portfolio-dashboard {
+    background-color: var(--color-bg-light, #1e1e1e);
+    border: 1px solid var(--color-border, #333);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-text, #eee);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border, #333);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.portfolio-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-accent, #bd93f9);
+    /* Vibrant Purple/Dracula theme */
+}
+
+.portfolio-status {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background-color: rgba(50, 205, 50, 0.1);
+    color: #32cd32;
+    /* Lime Green */
+    border: 1px solid #32cd32;
+}
+
+.portfolio-status.inactive {
+    background-color: rgba(255, 69, 0, 0.1);
+    color: #ff4500;
+    border: 1px solid #ff4500;
+}
+
+.portfolio-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--color-text-dim, #888);
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.portfolio-holdings table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.portfolio-holdings th,
+.portfolio-holdings td {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--color-border-dim, #444);
+}
+
+.portfolio-holdings th {
+    color: var(--color-accent, #bd93f9);
+}
+
+.portfolio-graph-placeholder {
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--color-border-dim, #444);
+    color: var(--color-text-dim, #888);
+    margin-top: 1rem;
+}
