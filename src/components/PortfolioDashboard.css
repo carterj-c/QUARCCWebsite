@@ -89,3 +89,9 @@
     color: var(--color-text-dim, #888);
     margin-top: 1rem;
 }
+
+.portfolio-chart-container {
+    margin-top: 1rem;
+    border-radius: 4px;
+    overflow: hidden;
+}
