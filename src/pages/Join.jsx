@@ -32,3 +32,5 @@ const Join = () => {
 //                <p>Email: <a href="mailto:quarccsma@gmail.com">quarccsma@gmail.com</a></p>
 //                <p>Lead: [Analyst Lead Name]</p>
 //            </SystemBox>
+
+export default Join;
