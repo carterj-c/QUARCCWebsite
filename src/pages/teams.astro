@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SystemBox from "../components/SystemBox.astro";
+import TeamMember from "../components/TeamMember.astro";
+import { getTeams } from "../lib/content";
+
+const teams = await getTeams();
+---
+
+<BaseLayout
+  title="Teams - QUARCC"
+  description="Meet the QUARCC executive team and explore our research groups: SMA (Stock Market Analysts) and QRG (Quantitative Research Group)."
+>
+  <div style="max-width: 1000px; margin: 0 auto;">
+    {teams.map((team) => (
+      <SystemBox title={team.data.name}>
+        {team.data.description ? (
+          <p style="margin-bottom: 20px; color: var(--color-text);">
+            {team.data.description}
+          </p>
+        ) : null}
+        {team.data.members.map((member) => (
+          <TeamMember
+            name={member.name}
+            role={member.role}
+            image={member.image}
+            linkedin={member.linkedin}
+            email={member.email}
+            website={member.website}
+          />
+        ))}
+      </SystemBox>
+    ))}
+  </div>
+</BaseLayout>

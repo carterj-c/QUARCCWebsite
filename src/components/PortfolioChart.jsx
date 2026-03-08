@@ -45,7 +45,7 @@ const PortfolioChart = ({
       layout: {
         background: { type: 'solid', color: 'transparent' },
         textColor: '#c9d1d9',
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "'IBM Plex Mono', monospace",
         fontSize: 11,
       },
       grid: {

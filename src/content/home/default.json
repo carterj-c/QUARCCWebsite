@@ -1,0 +1,15 @@
+{
+  "clubDetails": [
+    ["Name", "QUARCC"],
+    ["Full Name", "Quantitative Research and Competitions Club"],
+    ["Location", "Concordia University, Montreal"],
+    ["Mission", "Quant Finance Education & Research"]
+  ],
+  "projectStatus": [
+    ["Events", "Workshops ongoing"],
+    ["Recruitment", "Open for all students"],
+    ["Contact", "info@quarcc.com"]
+  ],
+  "welcomeTitle": "Welcome",
+  "welcomeBody": "QUARCC runs workshops, lectures, paper portfolios, and research programs focused on quantitative finance."
+}

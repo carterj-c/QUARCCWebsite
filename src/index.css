@@ -1,14 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
 @import './styles/animations.css';
 
 :root {
-  --color-bg: #0d1117;
-  --color-text: #c9d1d9;
-  --color-primary: #8957e5;
-  /* Darker vibrant purple */
-  --color-border: #30363d;
-  --color-accent: #58a6ff;
+  --color-bg: #030303;
+  --color-surface: #080808;
+  --surface-elevated: #0b0b0b;
+  --color-text: #d4d4d8;
+  --color-text-muted: #a1a1aa;
+  --color-text-soft: #71717a;
+  --color-heading: #f5f5f5;
+  --color-primary: #8b5cf6;
+  --color-border: #27272a;
+  --color-accent: #d482ab;
+  --color-accent-2: #b8ffcc;
+  --color-success: #86efac;
+  --color-danger: #fb7185;
 
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: "IBM Plex Mono", "Roboto Mono", "JetBrains Mono", monospace;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-display: "IBM Plex Mono", "Roboto Mono", "JetBrains Mono", monospace;
 
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -21,22 +31,37 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  accent-color: var(--color-accent);
+}
+
+@view-transition {
+  navigation: auto;
+}
+
 body {
   font-family: var(--font-mono);
-  background-color: var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
+  line-height: 1.65;
   min-height: 100vh;
   overflow-x: hidden;
+  font-size: 0.98rem;
 }
 
 a {
   color: var(--color-accent);
   text-decoration: none;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.14em;
+  text-decoration-color: transparent;
+  transition: color 0.16s ease, text-decoration-color 0.16s ease;
 }
 
 a:hover {
   text-decoration: underline;
+  text-decoration-color: currentColor;
 }
 
 h1,
@@ -45,10 +70,25 @@ h3,
 h4,
 h5,
 h6 {
-  color: #ffffff;
+  color: var(--color-heading);
+  font-family: var(--font-display);
+  font-weight: 700;
 }
 
-/* Scrollbar styling */
+img {
+  max-width: 100%;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: rgba(212, 130, 171, 0.25);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -58,6 +98,53 @@ h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: #1f1f23;
   border: 1px solid var(--color-bg);
+}
+
+::view-transition-old(root) {
+  animation: page-fade-out 0.18s ease forwards;
+}
+
+::view-transition-new(root) {
+  animation: page-fade-in 0.22s ease forwards;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  a {
+    transition: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }

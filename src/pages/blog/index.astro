@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, getBlogPosts, toContentSlug } from "../../lib/content";
+import "../../styles/blog.css";
+
+const posts = await getBlogPosts();
+const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags))).slice(0, 12);
+
+const groupedPosts = posts.reduce((groups, post) => {
+  const year = String(post.data.pubDate.getFullYear());
+  if (!groups[year]) {
+    groups[year] = [];
+  }
+  groups[year].push(post);
+  return groups;
+}, {});
+
+const years = Object.keys(groupedPosts).sort((a, b) => Number(b) - Number(a));
+---
+
+<BaseLayout
+  title="Blog - QUARCC"
+  description="Editorial notes, workshop reflections, and research updates from QUARCC."
+  pageClass="blog-shell"
+>
+  <section>
+    <h1 class="blog-page-title">Posts</h1>
+    <p class="blog-page-intro">
+      News, Publication and research from QUARCC.
+    </p>
+  </section>
+
+  <div class="blog-grid">
+    <div>
+      {years.map((year) => (
+        <section class="blog-year-section">
+          <h2 class="blog-year-heading">{year}</h2>
+          <ul class="blog-post-list" role="list">
+            {groupedPosts[year].map((post) => (
+              <li class="blog-post-list-item">
+                <div class="blog-post-row">
+                  <div class="blog-date">{formatDate(post.data.pubDate)}</div>
+                  <div>
+                    <a class="blog-preview-title" href={`/blog/${toContentSlug(post.id)}`}>
+                      {post.data.title}
+                    </a>
+                    <p class="blog-preview-description">{post.data.description}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <aside class="blog-sidebar">
+      <section>
+        <h2 class="blog-sidebar-title">Tags</h2>
+        <div class="blog-tag-cloud">
+          {tags.map((tag) => (
+            <span class="blog-tag-link">{tag}</span>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="blog-sidebar-title">Not Investment Advice</h2>
+        <p class="blog-note">
+          QUARCC is not a financial advisor.
+        </p>
+      </section>
+    </aside>
+  </div>
+</BaseLayout>

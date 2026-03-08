@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SystemBox from "../components/SystemBox.astro";
+import { getJoinContent } from "../lib/content";
+
+const join = await getJoinContent();
+---
+
+<BaseLayout
+  title="Join Us - QUARCC"
+  description="Join QUARCC to connect with like-minded students and gain hands-on experience in quantitative finance."
+>
+  <div style="max-width: 800px; margin: 0 auto;">
+    {join.sections.map((section) => (
+      <SystemBox title={section.title}>
+        {section.lines.map((line) => (
+          <p>
+            {line.startsWith("Email: ") ? (
+              <>
+                Email: <a href={`mailto:${line.replace("Email: ", "")}`}>{line.replace("Email: ", "")}</a>
+              </>
+            ) : line.startsWith("Instagram: ") ? (
+              <>
+                Instagram: <a href={line.replace("Instagram: ", "")}>{line.replace("Instagram: ", "")}</a>
+              </>
+            ) : line.startsWith("LinkedIn: ") ? (
+              <>
+                LinkedIn: <a href={line.replace("LinkedIn: ", "")}>{line.replace("LinkedIn: ", "")}</a>
+              </>
+            ) : (
+              line
+            )}
+          </p>
+        ))}
+      </SystemBox>
+    ))}
+  </div>
+</BaseLayout>

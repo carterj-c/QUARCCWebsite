@@ -1,0 +1,12 @@
+{
+  "title": "Algo Trading with Python",
+  "date": "2025-11-02",
+  "startTime": "17:00",
+  "endTime": "19:00",
+  "description": "Learn how to build and backtest algorithmic trading strategies using Python.",
+  "location": "Math Building",
+  "locationLink": "https://goo.gl/maps/example2",
+  "room": "M 202",
+  "link": "https://github.com/quarcc/algo-workshop",
+  "order": 2
+}

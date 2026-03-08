@@ -1,0 +1,85 @@
+{
+  "name": "Quantitative Research Lead",
+  "description": "Advanced teams managing paper portfolios: Research, Development, Trading.",
+  "leadLabel": "Research Group",
+  "order": 2,
+  "members": [
+    {
+      "name": "Anas Maaiti",
+      "role": "Research Lead",
+      "email": "Maaitianas@gmail.com",
+      "linkedin": "https://linkedin.com/in/anas-maaiti",
+      "website": ""
+    },
+    {
+      "name": "Inga Fehlhaber",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/ingafehlhaber/",
+      "website": ""
+    },
+    {
+      "name": "Andrew Koumoudjian",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/andrewkoumoudjian/",
+      "website": ""
+    },
+    {
+      "name": "Rifat Katranci",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/rifat-katranci-a30405287/",
+      "website": ""
+    },
+    {
+      "name": "Thomas Ballard",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/thomas-ballard1/",
+      "website": ""
+    },
+    {
+      "name": "Georges Hawi",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/georges-hawi-1b1394375/",
+      "website": ""
+    },
+    {
+      "name": "Shubham Singh",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/shubhamsingh0608/",
+      "website": ""
+    },
+    {
+      "name": "Hubert Lefebvre",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/hubert-lefebvre-476a26321/",
+      "website": ""
+    },
+    {
+      "name": "Hedi Belkahia",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/hedi-belkahia/",
+      "website": ""
+    },
+    {
+      "name": "Félix Aubry DeFilippo",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/felix-aubry-d/",
+      "website": ""
+    },
+    {
+      "name": "Alexandre Wu",
+      "role": "Research Lead",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/alexandre-wu-202441305/",
+      "website": ""
+    }
+  ]
+}
