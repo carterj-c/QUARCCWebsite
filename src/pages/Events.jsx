@@ -17,7 +17,7 @@ const Events = () => {
     const pastEvents = events.filter(event => getEventDateTime(event) < now).sort((a, b) => getEventDateTime(b) - getEventDateTime(a)); // Most recent past event first
 
     const EventItem = ({ event }) => (
-        <li style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #eee' }}>
+        <li style={{ marginBottom: '30px', paddingBottom: '30px', borderBottom: '1px solid #eee' }}>
             <div style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
                 {event.link ? (
                     <a href={event.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#007bff' }}>
@@ -36,7 +36,7 @@ const Events = () => {
                 </a>
                 {event.room && <span> ({event.room})</span>}
             </div>
-            <div>{event.description}</div>
+            <div style={{ whiteSpace: 'pre-line' }}>{event.description}</div>
         </li>
     );
 
