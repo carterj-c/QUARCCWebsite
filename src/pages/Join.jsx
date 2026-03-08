@@ -18,16 +18,17 @@ const Join = () => {
                 <p>Instagram: <a href="https://www.instagram.com/quarcc.csu/">@quarcc.csu</a></p>
                 <p>LinkedIn: <a href="https://www.linkedin.com/company/quarcc/">QUARCC</a></p>
             </SystemBox>
-            <SystemBox title="QUARCC Research Group">
-                <p>Email: <a href="mailto:qrg@quarcc.com">qrg@quarcc.com</a></p>
-                <p>Lead: [Research Lead Name]</p>
+            <SystemBox title="Quantitative Research Group">
+                <p>Email: <a href="mailto:research.quarcc@gmail.com">research.quarcc@gmail.com</a></p>
+                <p>Lead: [Chanakya Basupally]</p>
             </SystemBox>
-            <SystemBox title="Stock Market Analyst">
-                <p>Email: <a href="mailto:sma@quarcc.com">sma@quarcc.com</a></p>
-                <p>Lead: [Analyst Lead Name]</p>
-            </SystemBox>
+
         </div>
     );
 };
 
-export default Join;
+
+//       <SystemBox title="Stock Market Analyst">
+//                <p>Email: <a href="mailto:quarccsma@gmail.com">quarccsma@gmail.com</a></p>
+//                <p>Lead: [Analyst Lead Name]</p>
+//            </SystemBox>
