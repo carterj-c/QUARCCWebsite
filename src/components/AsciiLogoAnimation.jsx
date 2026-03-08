@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const AsciiLogoAnimation = () => {
+    const LOGO_SCALE_CAP = 0.84;
     const [isReady, setIsReady] = useState(false);
     const [displayContent, setDisplayContent] = useState({ type: 'text', data: '' });
     const [scale, setScale] = useState(0.5);
+    const [logoMetrics, setLogoMetrics] = useState({ width: 1100, height: 400 });
     const animationRef = useRef(null);
     const containerRef = useRef(null);
+    const preRef = useRef(null);
 
     const finalLogo = `                                                            √+++                               ∞∞√
                                                            =∞   =+                             ∞∞=
@@ -95,14 +98,21 @@ const AsciiLogoAnimation = () => {
 
     const timeLabels = ['9:30', '9:35', '9:40', '9:45', '9:50', '9:55', '10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30', '10:35', '10:40', '10:45'];
 
-    const LOGO_BASE_WIDTH = 1100;
-    const LOGO_BASE_HEIGHT = 400;
+    const LOGO_TOP_CROP = 0;
 
     useEffect(() => {
         const updateScale = () => {
-            if (containerRef.current) {
+            if (containerRef.current && preRef.current) {
                 const containerWidth = containerRef.current.parentElement?.clientWidth || window.innerWidth;
-                const newScale = Math.min(1, containerWidth / LOGO_BASE_WIDTH);
+                const intrinsicWidth = preRef.current.scrollWidth || logoMetrics.width;
+                const intrinsicHeight = preRef.current.scrollHeight || logoMetrics.height;
+                const newScale = Math.min(LOGO_SCALE_CAP, containerWidth / intrinsicWidth);
+
+                setLogoMetrics((current) =>
+                    current.width === intrinsicWidth && current.height === intrinsicHeight
+                        ? current
+                        : { width: intrinsicWidth, height: intrinsicHeight }
+                );
                 setScale(newScale);
                 if (!isReady) setIsReady(true);
             }
@@ -111,7 +121,7 @@ const AsciiLogoAnimation = () => {
         updateScale();
         window.addEventListener('resize', updateScale);
         return () => window.removeEventListener('resize', updateScale);
-    }, [isReady]);
+    }, [isReady, displayContent]);
 
     const buildChartColored = (revealedCandles) => {
         const lines = [];
@@ -338,7 +348,8 @@ const AsciiLogoAnimation = () => {
         return displayContent.data;
     };
 
-    const scaledHeight = LOGO_BASE_HEIGHT * scale;
+    const scaledWidth = logoMetrics.width * scale;
+    const scaledHeight = Math.max(180, (logoMetrics.height - LOGO_TOP_CROP) * scale);
 
     return (
         <div
@@ -348,26 +359,45 @@ const AsciiLogoAnimation = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 height: `${scaledHeight}px`,
-                overflow: 'hidden',
+                overflow: 'visible',
             }}
         >
-            <pre style={{
-                color: '#8957e5',
-                fontWeight: 'bold',
-                lineHeight: '1',
-                fontSize: '7px',
-                whiteSpace: 'pre',
-                overflow: 'visible',
-                transform: `scale(${scale})`,
-                transformOrigin: 'top center',
-                textShadow: '0 0 3px #8957e5',
-                fontFamily: "'Courier New', monospace",
-                opacity: isReady ? 1 : 0,
-                transition: 'opacity 0.2s ease-in',
-                willChange: 'contents',
-            }}>
-                {renderContent()}
-            </pre>
+            <div
+                style={{
+                    width: `${scaledWidth}px`,
+                    height: `${scaledHeight}px`,
+                    position: 'relative',
+                    flex: '0 0 auto',
+                }}
+            >
+                <pre
+                    ref={preRef}
+                    style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: '50%',
+                    display: 'inline-block',
+                    width: 'max-content',
+                    margin: 0,
+                    color: '#8957e5',
+                    fontWeight: 'bold',
+                    lineHeight: '1',
+                    fontSize: '7px',
+                    marginTop: `-${LOGO_TOP_CROP * scale}px`,
+                    whiteSpace: 'pre',
+                    overflow: 'visible',
+                    transform: `translateX(-50%) scale(${scale})`,
+                    transformOrigin: 'top center',
+                    textShadow: '0 0 3px #8957e5',
+                    fontFamily: "'Courier New', monospace",
+                    opacity: isReady ? 1 : 0,
+                    transition: 'opacity 0.2s ease-in',
+                    willChange: 'contents',
+                }}
+                >
+                    {renderContent()}
+                </pre>
+            </div>
         </div>
     );
 };

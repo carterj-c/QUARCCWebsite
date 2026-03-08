@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AsciiLogoAnimation from "../components/AsciiLogoAnimation.jsx";
+import SystemBox from "../components/SystemBox.astro";
+import "../pages/Home.css";
+import { formatDate, getHomeContent, getLatestBlogPosts, toContentSlug } from "../lib/content";
+
+const posts = await getLatestBlogPosts(3);
+const home = getHomeContent();
+---
+
+<BaseLayout
+  title="QUARCC - Quantitative Research and Competitions Club"
+  description="QUARCC is a student-run club at Concordia University dedicated to quantitative finance, featuring research groups and algorithmic trading."
+  showHomeLink={false}
+>
+  <div class="home-container">
+    <div class="home-left">
+      <div class="hero-logo-wrap">
+        <AsciiLogoAnimation client:load />
+      </div>
+      <div class="news-container">
+        <div class="hero-copy">
+          <strong>{home.welcomeTitle}</strong>
+          <p>{home.welcomeBody}</p>
+        </div>
+        <div class="posts-section">
+          <div class="posts-intro">
+            <h2>Posts</h2>
+            <p>Latest writing from QUARCC.</p>
+          </div>
+          <div class="news-list">
+            {posts.map((post) => (
+              <a href={`/blog/${toContentSlug(post.id)}`} class="news-card">
+                <div class="news-card-title">{post.data.title}</div>
+                <div class="news-card-date">{formatDate(post.data.pubDate)}</div>
+                <div class="news-card-summary">{post.data.description}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home-right">
+      <SystemBox title="Club Details">
+        {home.clubDetails.map(([label, value]) => (
+          <div class="detail-row">
+            <span class="label">{label}:</span> <span class="value">{value}</span>
+          </div>
+        ))}
+      </SystemBox>
+
+      <SystemBox title="System Navigation">
+        <div class="nav-links-grid">
+          <a href="/about" class="nav-link">
+            <span class="nav-key">about</span>
+            <span class="nav-desc">Club Information</span>
+          </a>
+          <a href="/events" class="nav-link">
+            <span class="nav-key">events</span>
+            <span class="nav-desc">Upcoming Events</span>
+          </a>
+          <a href="/blog" class="nav-link">
+            <span class="nav-key">blog</span>
+            <span class="nav-desc">Latest Articles</span>
+          </a>
+          <a href="/teams" class="nav-link">
+            <span class="nav-key">teams</span>
+            <span class="nav-desc">Our Structure</span>
+          </a>
+          <a href="/join" class="nav-link">
+            <span class="nav-key">join</span>
+            <span class="nav-desc">Recruitment</span>
+          </a>
+          <a href="/paper-fund" class="nav-link">
+            <span class="nav-key">paper-fund</span>
+            <span class="nav-desc">Live Portfolios</span>
+          </a>
+        </div>
+      </SystemBox>
+
+      <SystemBox title="Project Status">
+        {home.projectStatus.map(([label, value]) => (
+          <div class="detail-row">
+            <span class="label">{label}:</span> <span class="value">{value}</span>
+          </div>
+        ))}
+      </SystemBox>
+    </div>
+  </div>
+</BaseLayout>

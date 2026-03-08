@@ -1,0 +1,36 @@
+{
+  "name": "Stock Market Analysts (SMA)",
+  "description": "A guided curriculum on systematic trading with workshops, research reviews, and portfolio discussions.",
+  "leadLabel": "SMA Team",
+  "order": 3,
+  "members": [
+    {
+      "name": "Thomas Ballard",
+      "role": "SMA Member",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/thomas-ballard1/",
+      "website": ""
+    },
+    {
+      "name": "Inga Fehlhaber",
+      "role": "SMA Member",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/ingafehlhaber/",
+      "website": ""
+    },
+    {
+      "name": "Andrew Koumoudjian",
+      "role": "SMA Member",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/andrewkoumoudjian/",
+      "website": ""
+    },
+    {
+      "name": "Rifat Katranci",
+      "role": "SMA Member",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/rifat-katranci-a30405287/",
+      "website": ""
+    }
+  ]
+}

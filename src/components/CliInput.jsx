@@ -1,16 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './CliInput.css';
 
 const CliInput = () => {
     const [input, setInput] = useState('');
     const [history, setHistory] = useState([]);
-    const navigate = useNavigate();
+    const historyRef = useRef(null);
     const bottomRef = useRef(null);
 
     useEffect(() => {
-        if (bottomRef.current) {
-            bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+        if (historyRef.current) {
+            historyRef.current.scrollTop = historyRef.current.scrollHeight;
         }
     }, [history]);
 
@@ -23,6 +22,8 @@ const CliInput = () => {
                 'home': '/',
                 'about': '/about',
                 'events': '/events',
+                'blog': '/blog',
+                'news': '/news',
                 'teams': '/teams',
                 'join': '/join',
                 'paper-fund': '/paper-fund',
@@ -34,6 +35,8 @@ const CliInput = () => {
                 newHistory.push('  home        - Go to Dashboard');
                 newHistory.push('  about       - Club Information');
                 newHistory.push('  events      - Upcoming Events');
+                newHistory.push('  blog        - Blog / News');
+                newHistory.push('  news        - Legacy blog redirect');
                 newHistory.push('  teams       - Our Structure');
                 newHistory.push('  join        - Recruitment');
                 newHistory.push('  paper-fund  - Live Portfolios');
@@ -44,7 +47,7 @@ const CliInput = () => {
                 return;
             } else if (routes[command]) {
                 newHistory.push(`Navigating to ${command}...`);
-                navigate(routes[command]);
+                window.location.assign(routes[command]);
             } else if (command !== '') {
                 newHistory.push(`bash: ${command}: command not found`);
             }
@@ -56,7 +59,7 @@ const CliInput = () => {
 
     return (
         <div className="cli-wrapper">
-            <div className="cli-history">
+            <div className="cli-history" ref={historyRef}>
                 {history.map((line, index) => (
                     <div key={index} className="cli-line">{line}</div>
                 ))}
@@ -70,7 +73,6 @@ const CliInput = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    autoFocus
                     spellCheck={false}
                     placeholder="type help for a list of commands"
                 />

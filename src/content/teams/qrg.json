@@ -1,0 +1,15 @@
+{
+  "name": "QUARCC Research Group (QRG)",
+  "description": "Advanced teams managing paper portfolios across research, development, and trading workflows.",
+  "leadLabel": "Research Group",
+  "order": 2,
+  "members": [
+    {
+      "name": "Anas Maaiti",
+      "role": "Research Analyst",
+      "email": "Maaitianas@gmail.com",
+      "linkedin": "https://linkedin.com/in/anas-maaiti",
+      "website": ""
+    }
+  ]
+}

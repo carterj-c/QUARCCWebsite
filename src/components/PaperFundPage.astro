@@ -1,0 +1,28 @@
+---
+import SystemBox from "./SystemBox.astro";
+import PaperFundClient from "./PaperFundClient.jsx";
+
+const { portfolios = [] } = Astro.props;
+---
+
+<div class="paper-fund-shell">
+  <SystemBox title="Live Paper Portfolios">
+    <p class="paper-fund-intro">
+      Portfolio descriptions are stored with the site. Live holdings and equity data are fetched
+      from the paper-fund API when available.
+    </p>
+    <PaperFundClient client:load portfolios={portfolios} />
+  </SystemBox>
+</div>
+
+<style>
+  .paper-fund-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .paper-fund-intro {
+    margin-bottom: 1.5rem;
+    color: var(--color-text-muted);
+  }
+</style>

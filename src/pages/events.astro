@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SystemBox from "../components/SystemBox.astro";
+import { getEvents } from "../lib/content";
+
+const events = (await getEvents()).map((entry) => entry.data);
+const now = new Date();
+const getEventDateTime = (event) => new Date(`${event.date}T${event.endTime}`);
+const upcomingEvents = events
+  .filter((event) => getEventDateTime(event) >= now)
+  .sort((a, b) => getEventDateTime(a) - getEventDateTime(b));
+const pastEvents = events
+  .filter((event) => getEventDateTime(event) < now)
+  .sort((a, b) => getEventDateTime(b) - getEventDateTime(a));
+---
+
+<BaseLayout
+  title="Events - QUARCC"
+  description="Stay updated with QUARCC's upcoming workshops, lectures, and social events in quantitative finance."
+>
+  <div style="max-width: 800px; margin: 0 auto;">
+    <SystemBox title="Upcoming Events">
+      {
+        upcomingEvents.length ? (
+          <ul style="list-style-type: none; padding: 0;">
+            {upcomingEvents.map((event) => (
+              <li style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+                <div style="font-weight: bold; font-size: 1.2em;">
+                  {event.link ? (
+                    <a href={event.link} target="_blank" rel="noopener noreferrer">
+                      {event.title}
+                    </a>
+                  ) : (
+                    event.title
+                  )}
+                </div>
+                <div style="color: #8f9ab2; margin-bottom: 5px;">
+                  {event.date} | {event.startTime} - {event.endTime}
+                </div>
+                <div style="margin-bottom: 5px;">
+                  📍 <a href={event.locationLink} target="_blank" rel="noopener noreferrer">
+                    {event.location}
+                  </a>
+                  {event.room ? <span> ({event.room})</span> : null}
+                </div>
+                <div>{event.description}</div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No upcoming events at the moment. Check back soon!</p>
+        )
+      }
+    </SystemBox>
+
+    <SystemBox title="Past Events">
+      {
+        pastEvents.length ? (
+          <ul style="list-style-type: none; padding: 0;">
+            {pastEvents.map((event) => (
+              <li style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+                <div style="font-weight: bold; font-size: 1.2em;">
+                  {event.link ? (
+                    <a href={event.link} target="_blank" rel="noopener noreferrer">
+                      {event.title}
+                    </a>
+                  ) : (
+                    event.title
+                  )}
+                </div>
+                <div style="color: #8f9ab2; margin-bottom: 5px;">
+                  {event.date} | {event.startTime} - {event.endTime}
+                </div>
+                <div style="margin-bottom: 5px;">
+                  📍 <a href={event.locationLink} target="_blank" rel="noopener noreferrer">
+                    {event.location}
+                  </a>
+                  {event.room ? <span> ({event.room})</span> : null}
+                </div>
+                <div>{event.description}</div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No past events to show.</p>
+        )
+      }
+    </SystemBox>
+  </div>
+</BaseLayout>

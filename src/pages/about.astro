@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SystemBox from "../components/SystemBox.astro";
+import { getAboutContent } from "../lib/content";
+
+const about = getAboutContent();
+---
+
+<BaseLayout
+  title="About - QUARCC"
+  description="Learn about QUARCC's mission to educate students in quantitative finance through workshops, lectures, and research."
+>
+  <div style="max-width: 800px; margin: 0 auto;">
+    <SystemBox title="About QUARCC">
+      {about.paragraphs.map((paragraph, index) => (
+        <p style={index ? "margin-top: 1rem;" : ""}>{paragraph}</p>
+      ))}
+    </SystemBox>
+  </div>
+</BaseLayout>

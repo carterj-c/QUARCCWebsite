@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PaperFundPage from "../components/PaperFundPage.astro";
+import { getPortfolios, toContentSlug } from "../lib/content";
+
+const portfolios = (await getPortfolios()).map((entry) => ({
+  id: toContentSlug(entry.id),
+  slug: toContentSlug(entry.id),
+  ...entry.data,
+}));
+---
+
+<BaseLayout
+  title="Paper Fund - QUARCC"
+  description="Explore QUARCC's paper portfolios and live trading strategies managed by our research teams."
+>
+  <PaperFundPage portfolios={portfolios} />
+</BaseLayout>
