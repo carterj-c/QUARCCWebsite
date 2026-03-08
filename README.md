@@ -1,16 +1,73 @@
-# React + Vite
+# QUARCC Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Astro-based QUARCC website with:
 
-Currently, two official plugins are available:
+- file-based blog content in `src/content/blog`
+- local structured site data for teams, events, and portfolio fallbacks
+- static Astro pages and layouts
+- React islands only where interactivity is still useful (`AsciiLogoAnimation`, CLI footer, portfolio dashboards)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Commands
 
-## React Compiler
+```bash
+npm install
+npm run dev
+npm run check
+npm run build
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Content Structure
 
-## Expanding the ESLint configuration
+- `src/content/blog/*.md`: blog posts with typed frontmatter
+- `src/content/events/*.json`: event entries
+- `src/content/teams/*.json`: team sections and members
+- `src/content/portfolios/*.json`: static paper-fund fallback data
+- `src/data/site.ts`: shared page copy for home/about/join
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Blog Frontmatter
+
+Each blog post supports:
+
+- `title`
+- `description`
+- `pubDate`
+- `updatedDate` optional
+- `heroImage` optional
+- `heroImageAlt` optional
+- `tags` optional
+- `draft` optional
+- `featured` optional
+
+## Live Paper Fund API
+
+Set `PUBLIC_PAPER_FUND_API_BASE` to point at the separate live portfolio API. The site fetches:
+
+```text
+${PUBLIC_PAPER_FUND_API_BASE}/portfolios
+```
+
+Expected response shape:
+
+```json
+{
+  "portfolios": [
+    {
+      "slug": "portfolio-alpha",
+      "name": "Portfolio Alpha",
+      "strategy": "Statistical Arbitrage",
+      "status": "Active",
+      "summary": "A research-led portfolio focused on market neutral pair trading.",
+      "stats": {
+        "equity": "$1,245,300.50",
+        "dayChange": "+2.4%",
+        "sharpe": "1.8",
+        "beta": "0.45"
+      },
+      "holdings": [],
+      "chartData": []
+    }
+  ]
+}
+```
+
+If the variable is unset or the API is unavailable, the `paper-fund` page falls back to the file-based portfolio data in `src/content/portfolios`.

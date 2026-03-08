@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ComingSoonPanel from "../../components/ComingSoonPanel.astro";
+import { getPortfolios, toContentSlug } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const portfolios = await getPortfolios();
+
+  return portfolios.map((entry) => ({
+    params: { slug: toContentSlug(entry.id) },
+    props: {
+      portfolio: {
+        id: toContentSlug(entry.id),
+        slug: toContentSlug(entry.id),
+        ...entry.data,
+      },
+    },
+  }));
+}
+
+const { portfolio } = Astro.props;
+---
+
+<BaseLayout
+  title={`${portfolio.name} - Paper Fund - QUARCC`}
+  description={portfolio.summary}
+>
+  <ComingSoonPanel
+    title={`${portfolio.name}`}
+    description="This portfolio page is being prepared for public release."
+    note="The underlying implementation is still in the codebase while the section remains in coming-soon mode."
+  />
+</BaseLayout>

@@ -1,0 +1,64 @@
+{
+  "name": "Executives",
+  "description": "Leadership team responsible for operations, strategy, and execution.",
+  "leadLabel": "Executive Team",
+  "order": 1,
+  "members": [
+    {
+      "name": "Carter Cameron",
+      "role": "President",
+      "email": "president@quarcc.com",
+      "linkedin": "https://linkedin.com/cartercameronfina",
+      "website": ""
+    },
+    {
+      "name": "Valentino Magniette-Bosseboeuf",
+      "role": "EVP",
+      "email": "competitions@quarcc.com",
+      "linkedin": "https://linkedin.com/in/valentino-mb/",
+      "website": "https://valentinomb.com"
+    },
+    {
+      "name": "Nicolas Romero",
+      "role": "Director of Operations",
+      "email": "sma@quarcc.com",
+      "linkedin": "https://linkedin.com/in/nicolasdavidromero",
+      "website": ""
+    },
+    {
+      "name": "Chanakya Basupally",
+      "role": "Director of Research",
+      "email": "operations@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/chanakyabasupally/",
+      "website": "https://bob.com"
+    },
+    {
+      "name": "Hani Hishmih",
+      "role": "VP Finance",
+      "email": "finance@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/hanihishmih/",
+      "website": ""
+    },
+    {
+      "name": "Kyra Rousketos",
+      "role": "VP Marketing",
+      "email": "marketing@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/kyra-rousketos/",
+      "website": ""
+    },
+    {
+      "name": "Alexander Nendsa",
+      "role": "VP Marketing",
+      "email": "marketing@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/alexander-nendsa-9aa927272/",
+      "website": ""
+    },
+    {
+      "name": "Cloe Monteith",
+      "role": "VP Internal",
+      "email": "internal@quarcc.com",
+      "linkedin": "https://www.linkedin.com/in/cloe-monteith-a435301a9/",
+      "website": ""
+    }
+  ]
+}
