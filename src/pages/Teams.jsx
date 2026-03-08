@@ -26,6 +26,7 @@ const Teams = () => {
         { name: "Temuujin Nomynbayasgalan", role: "Quantitative Analyst", linkedin: "https://www.linkedin.com/in/tnomynbayasgalan/", email: "sma@quarcc.com", website: "" },
         { name: "Sebastian Bobos", role: "Quantitative Analyst", linkedin: "https://www.linkedin.com/in/sebastian-b-8b670129a/", email: "sma@quarcc.com", website: "" },
         { name: "Vidhyaasagar Shanmugam", role: "Quantitative Analyst", linkedin: "https://www.linkedin.com/in/vidhyaasagar-shanmugam-668143140/", email: "sma@quarcc.com", website: "" },
+        { name: "Sebastian Serban", role: "Quantitative Analyst", linkedin: "https://www.linkedin.com/in/sebastian-serban003465/", email: "sma@quarcc.com", website: "" },
         { name: "Andrei Turcu", role: "Quantitative Analyst", linkedin: "https://www.linkedin.com/in/andrei--turcu/", email: "sma@quarcc.com", website: "" },
         { name: "Giuseppe-Luca Cianflone", role: "Quantitative Analyst", linkedin: "https://www.linkedin.com/in/gcianflone/", email: "sma@quarcc.com", website: "" },
 
