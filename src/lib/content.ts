@@ -52,7 +52,8 @@ export async function getJoinContent() {
 }
 
 export async function gettrophies() {
-  return sortByOrder(await getCollection("trophies"));
+  const trophies = await getCollection("trophies");
+  return trophies.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 }
 
 export function formatDate(date: Date) {
